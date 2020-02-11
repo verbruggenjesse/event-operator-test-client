@@ -1,0 +1,50 @@
+syntax = "proto3"; 
+package eventstore;
+
+message Event { 
+    string topic = 1; 
+    string action = 2; 
+    map<string, string> metadata = 3; 
+    string payload = 4;
+    string id = 5;
+}
+
+message Notification {
+    string topic = 1;
+    string action = 2;
+    string target = 3;
+    string payload = 4;
+    string id = 5;
+    string serviceId = 6;
+}
+
+message DeliveryStatus { 
+    bool success = 1;
+    string id = 2;
+} 
+
+message SubscribeRequest { 
+    repeated Key subscriptions = 1;
+}
+
+message Key {
+    string topic = 1;
+    string action = 2;
+    string lastId = 3;
+}
+
+service EventOperator { 
+    rpc Publish(Event) returns (DeliveryStatus);
+}
+
+service EventCentral {
+    rpc Subscribe(SubscribeRequest) returns (stream Event);
+}
+
+service NotificationOperator { 
+    rpc Publish(Notification) returns (DeliveryStatus);
+}
+
+service NotificationCentral {
+    rpc Subscribe(SubscribeRequest) returns (stream Notification);
+}
