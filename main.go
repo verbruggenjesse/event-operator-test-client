@@ -4,18 +4,23 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 
 	pb "github.com/verbruggenjesse/event-store/operator-client-test/gen"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
-const serverAddr = ":3001"
-
 func main() {
+	var serverAddr string
+
+	if serverAddr = os.Getenv("EVENT_OPERATOR_ADDR"); serverAddr == "" {
+		log.Fatalln("Missing required environment variable 'EVENT_OPERATOR_ADDR'")
+	}
+
 	conn, err := grpc.Dial(serverAddr, grpc.WithInsecure())
 	if err != nil {
-		log.Fatal("could not connect to publisher service")
+		log.Fatal("could not connect to operator service")
 	}
 	defer conn.Close()
 
