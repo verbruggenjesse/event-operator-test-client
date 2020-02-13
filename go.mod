@@ -1,4 +1,4 @@
-module github.com/verbruggenjesse/event-store/operator-client-test
+module github.com/verbruggenjesse/event-store/event-operator-test-client
 
 go 1.13
 

@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	pb "github.com/verbruggenjesse/event-store/operator-client-test/gen"
+	pb "github.com/verbruggenjesse/event-store/event-operator-test-client/gen"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
